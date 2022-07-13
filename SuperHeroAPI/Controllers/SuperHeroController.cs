@@ -12,24 +12,6 @@ namespace SuperHeroAPI.Controllers
     [ApiController]
     public class SuperHeroController : Controller
     {
-        private static List<SuperHero> heroes = new List<SuperHero>
-            {
-                new SuperHero {
-                    Id=1,
-                    Name="Spider Man",
-                    FristName="Peter",
-                    LastName="Parker",
-                    Place="New York City"
-                },
-                new SuperHero
-                {
-                    Id=2,
-                    Name="Iron Man",
-                    FristName="Tony",
-                    LastName="Stark",
-                    Place="Long Island"
-                }
-            };
         private readonly DataContext _context;
 
         public SuperHeroController(DataContext context)
@@ -58,7 +40,7 @@ namespace SuperHeroAPI.Controllers
         {
             _context.SuperHeroes.Add(hero);
             await _context.SaveChangesAsync();
-            return Ok(heroes);
+            return Ok(await _context.SuperHeroes.ToListAsync());
         }
 
         [HttpPut]
